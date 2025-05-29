@@ -61,11 +61,13 @@ public struct HistoricalDataRequest: AnyCancellableRequest, IdentifiableRequest{
 	 Creates new request to query historical data
 	 - returns: 'HistoricalData' event with optional updates
 	 - parameter id: unique request id
-	 - parameter contract:
-	 - parameter interval:
-	 - paramter size: observation length
-	 - parameter source:
-	 . parameter extendedTrading
+	 - parameter contract: contract
+	 - parameter interval: observation period dateinterval
+	 - parameter size: observation sample length (eg .day)
+	 - parameter source: observation type (eg trades, bid_ask)
+	 - parameter extendedTrading: include data outside the regular trading session
+	 
+	 - note: to enable continous updates, set interval end date as `distantFuture`
 	 */
 	public init(
 		id: Int ,
@@ -190,10 +192,13 @@ public struct HistoricalDataCancel: IdentifiableRequest{
  */
 public struct HistoricalData: IBEvent, IBDecodable{
 
+	/// id of originating request
 	public let id: Int
 
+	/// observation length
 	public let interval: DateInterval
 
+	/// observation results
 	public let series: [Bar]
 		
 	public init(from decoder: IBDecoder) throws {
@@ -242,12 +247,14 @@ public struct HistoricalData: IBEvent, IBDecodable{
 }
 
 /**
- returns updates in real time when keepUpToDate is set to True
+ returns updates in real time when interval end date is set to `distantFuture`
  */
 public struct HistoricalDataUpdate: IBEvent, IBDecodable, Identifiable{
 
+	/// id of originating request
 	public let id: Int
 
+	/// observation update
 	public let bar: Bar
 	
 	public init(from decoder: IBDecoder) throws {
