@@ -20,7 +20,7 @@ IBModels supports TWS API (using gateway or traders workstation), Webapi is curr
 To use the `IBModels` library in a SwiftPM project, add the following line to the dependencies in your `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/stensoosaar/ibmodels", from: "10.33"),
+.package(url: "https://github.com/stensoosaar/ibmodels", from: "10.33.0"),
 ```
 
 Include `"TWS"` as a dependency for your executable target:
