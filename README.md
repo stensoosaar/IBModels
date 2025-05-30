@@ -74,8 +74,8 @@ If the request has id, also responses have corresponding id. Rest of the message
 ## Notable Differences
 
 While most of the requests and responses loosely follow TWS API models, there are few differences with market data responses.
-- Price updates are moved from ´TickPrice´ to ´TickQuote´ message to reduce message count. 
-- Original ´TickString´ and ´TickGeneric´ messages  
+- Quote (price,size) related updates are moved from the TickPrice message to the TickQuote message to reduce message count. However, price statistics (e.g., high, low, close) are still returned via the TickPrice message. 
+- Original ´TickString´ and ´TickGeneric´ messages delivered opaque payloads that required additional parsing to extract context-specific data such as dividends, real-time volume and sales, or shortable status. In this model, these have been replaced with dedicated, structured message types to provide better clarity.
 
 ---
 
