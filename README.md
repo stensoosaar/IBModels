@@ -83,11 +83,12 @@ This makes it easy to manage the full request lifecycle — from starting a stre
 4. Pass the message payload (without the length) to `IBDecoder`
 
 ```swift
-let decoder = IBDecoder(serverVersion: client.serverVersion)
+let decoder = IBDecoder(serverVersion: serverVersion)
 let response = try decoder.decode(Response.self, from: data)
 ```
 
 Decoded `Response.result` contains response type , optional identifier matching originating request identifier and payload as `Result<Response, ErrorMessage>`
+
 
 ## Pairing Requests and Responses
 For the sake of bandwidth efficiency and speed, many incoming messages from IB are stripped down to the bare minimum, lacking context about the original request. It’s up to the developer to pair responses with their originating requests to interpret the messages correctly.
@@ -98,7 +99,6 @@ Some ideas to handle this:
 - **Request Buffering:** Keep a buffer of active requests in memory and match them to incoming responses by ID or message type. Once matched, you can deliver a combined wrapper of both request and response.
 - **Publisher-based Routing:** Use a Publisher for each outgoing request and compare incoming messages by type and ID. This approach lets you route messages directly to the appropriate pipeline or handler.
 This pairing is essential for reconstructing context around minimal IB responses, especially for complex workflows like market data, account updates, or order status tracking.
-
 
 ```swift
 func dataTaskPublisher<T: IdentifiableRequest>(for request: T) -> AnyPublisher<IBEvent, Error> {
@@ -127,14 +127,13 @@ func dataTaskPublisher<T: IdentifiableRequest>(for request: T) -> AnyPublisher<I
         )
         .eraseToAnyPublisher()
 }
-
 ```
 
 
 ## Notable Differences
 While most of the requests and responses loosely follow TWS API models, there are few differences with market data responses.
-- Quote (price,size) related updates are moved from the TickPrice message to the TickQuote message to reduce message count. However, price statistics (e.g., high, low, close) are still returned via the TickPrice message. 
-- Original ´TickString´ and ´TickGeneric´ messages delivered opaque payloads that required additional parsing to extract context-specific data such as dividends, real-time volume and sales, or shortable status. In this model, these have been replaced with dedicated, structured message types to provide better clarity.
+- Quote (price,size) related updates are moved from the `TickPrice` message to the `TickQuote` message to reduce message count. However, price statistics (e.g., high, low, close) are still returned via the `TickPrice` message. 
+- Original `TickString` and `TickGeneric` messages delivered opaque payloads that required additional parsing to extract context-specific data such as dividends, real-time volume and sales, or shortable status. In this model, these have been replaced with dedicated, structured message types to provide better clarity.
 
 
 ## Update Frequency
