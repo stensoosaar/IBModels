@@ -27,28 +27,29 @@ import Foundation
 
 
 /**
- returns historical schedule for historical data request with whatToShow=SCHEDULE
+ Delivers historical schedule  request with whatToShow=SCHEDULE
  */
 public struct HistoricalSchedule: IBEvent, IBDecodable, Identifiable{
 
+	/// id of orginating request
 	public let id: Int
 
-	public let start: String
+	/// Response range
+	public let interval: DateInterval
 
-	public let end: String
-
+	/// the time zone referenced by the schedule
 	public let timeZoneID: String
 	
 	public struct HistoricalSession: Sendable, Decodable {
-		public var start: String
-		public var end: String
-		public var referencedate: String
+		public let interval: DateInterval
+		public let referenceDate: String
 		
 		public init(from decoder: any Decoder) throws{
 			var container = try decoder.unkeyedContainer()
-			self.start = try container.decode(String.self)
-			self.end = try container.decode(String.self)
-			self.referencedate = try container.decode(String.self)
+			let start = try container.decode(Date.self)
+			let end = try container.decode(Date.self)
+			self.interval = DateInterval(start: start, end: end)
+			self.referenceDate = try container.decode(String.self)
 		}
 		
 	}
@@ -58,8 +59,9 @@ public struct HistoricalSchedule: IBEvent, IBDecodable, Identifiable{
 	public init(from decoder: IBDecoder) throws{
 		var container = try decoder.unkeyedContainer()
 		self.id = try container.decode(Int.self)
-		self.start = try container.decode(String.self)
-		self.end = try container.decode(String.self)
+		let start = try container.decode(String.self)
+		let end = try container.decode(String.self)
+		self.interval = DateInterval(start: start, end: end)
 		self.timeZoneID = try container.decode(String.self)
 		let count = try container.decode(Int.self)
 		var buffer:[HistoricalSession] = []
@@ -70,6 +72,5 @@ public struct HistoricalSchedule: IBEvent, IBDecodable, Identifiable{
 		sessions = buffer
 
 	}
-
 	
 }

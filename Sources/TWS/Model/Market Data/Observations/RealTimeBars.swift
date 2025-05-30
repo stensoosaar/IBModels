@@ -26,7 +26,9 @@ import Foundation
 
 
 
-
+/**
+ Request to query real time bar updates.
+ */
 public struct RealTimeBarsRequest: AnyCancellableRequest, IdentifiableRequest{
 	
 	public let type: RequestType = .realTimeBars
@@ -47,6 +49,14 @@ public struct RealTimeBarsRequest: AnyCancellableRequest, IdentifiableRequest{
 	
 	public let options: [String:String]?
 	
+	/**
+	 Creates new request to stream real time bars
+	 - parameter id: unique reqiest id
+	 - parameter contract: contract
+	 - parameter source: what data to observe (eg. trades)
+	 - parameter extendedTrading: include data outside the regular trading session
+	 - note: only 5 second bars are delivered
+	 */
 	public init(id: Int, contract:Contract, source: BarSource, extendedTrading: Bool) {
 		self.id = id
 		self.contract = contract
@@ -82,7 +92,9 @@ public struct RealTimeBarsRequest: AnyCancellableRequest, IdentifiableRequest{
 	}
 }
 
-
+/**
+ Cancellation of an outstanding real time bar request
+ */
 public struct RealTimeBarsCancel: IdentifiableRequest{
 	
 	public let type: RequestType = .realTimeBarsCancel
@@ -112,8 +124,10 @@ public struct RealTimeBarsCancel: IdentifiableRequest{
 */
 public struct RealtimeBar: IBEvent, IBDecodable, Identifiable {
 		
+	/// id of originating request
 	public let id: Int
 	
+	/// bar with 5 second sample size
 	public let bar: Bar
 	
 	public init(from decoder: IBDecoder) throws {

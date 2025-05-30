@@ -160,7 +160,9 @@ public struct HistoricalDataRequest: AnyCancellableRequest, IdentifiableRequest{
 	}
 }
 
-
+/**
+ Cancellation of an outstanding market data request
+ */
 public struct HistoricalDataCancel: IdentifiableRequest{
 	
 	public let type: RequestType = .historicalDataCancel
@@ -185,10 +187,8 @@ public struct HistoricalDataCancel: IdentifiableRequest{
 
 
 
-//MARK: - RESPONSE
-
 /**
- returns the requested historical data bars
+ Delivers the requested historical data bars
  */
 public struct HistoricalData: IBEvent, IBDecodable{
 

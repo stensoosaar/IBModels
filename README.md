@@ -1,10 +1,10 @@
 # IBModels
 ![API Version](https://img.shields.io/badge/API_Version-10.33.0-blue)
-![Swift](https://img.shields.io/badge/Swift-5.9-blue.svg)
+![Swift](https://img.shields.io/badge/Swift-5.9+-blue.svg)
 [![SPM](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-blue.svg)](https://github.com/apple/swift-package-manager)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/stensoosaar/IBKit#license) 
 
-A native Swift library representing Interactive Brokers request and response data models. 
+A native Swift library representing Interactive Brokers request and response data models for IB TWS API. Client Portal API (aka webapi) is not currently supported.
 
 This library does **not include** the network connection or socket transport — you're free to use your preferred technologies such as `Network`, `SwiftNIO`, or others to manage communication with the TWS API socket.
 
@@ -14,9 +14,8 @@ Furthermore, by separating the model layer from the client implementation, devel
 
 
 ## Highlights
-- All requests and responses are represented as **value types** (`structs`)
-- Requests are `Encodable`, responses are `Decodable`, not functions or callbacks
 - Swift-native types and naming conventions used for readability and safety.
+- All requests and responses are represented as sendable structs, not functions and callbacks
 - Consistent with IB protocol yet idiomatic for Swift developers
 - No required dependencies — purely typed models and encoding/decoding
 

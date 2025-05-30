@@ -1,4 +1,4 @@
 import Testing
-@testable import IBModels
+@testable import TWS
 
 @Test func example() async throws {}

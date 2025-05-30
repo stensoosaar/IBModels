@@ -25,8 +25,9 @@
 import Foundation
 
 
-
-
+/**
+Request for historical news headlines
+ */
 public struct HistoricalNewsRequest: IdentifiableRequest{
 	
 	public let type: RequestType = .historicalNews
@@ -43,23 +44,30 @@ public struct HistoricalNewsRequest: IdentifiableRequest{
 	
 	public let totalResults: Int
 	
-	public let historicalNewsOptions: [String:String]?
+	public let options: [String:String]?
 	
+	/**
+	 Creates new historical news request
+	 - parameter id: unique request id
+	 - parameter contractId: contract id
+	 - parameter providerCodes: list of provider codes
+	 - parameter interval: range of publishing dates
+	 - parameter totalResults: number of headlines to fetch
+	 */
 	public init(
 		id: Int,
 		contractId: Int,
-		providerCodes: String,
+		providerCodes: [String],
 		interval: DateInterval,
 		totalResults: Int,
-		historicalNewsOptions: [String:String]? = nil
+		options: [String:String]? = nil
 	){
 		self.id = id
 		self.contractId = contractId
 		self.providerCodes = providerCodes
 		self.interval = interval
 		self.totalResults = totalResults
-		self.historicalNewsOptions = historicalNewsOptions
-		
+		self.options = options
 	}
 	
 	public func encode(to encoder: IBEncoder) throws {
@@ -67,7 +75,8 @@ public struct HistoricalNewsRequest: IdentifiableRequest{
 		try container.encode(type)
 		try container.encode(id)
 		try container.encode(contractId)
-		try container.encode(providerCodes)
+		let codes = providerCodes.joined(separator: "+")
+		try container.encode(codes)
 		try container.encode(interval.start)
 		try container.encode(interval.end)
 		try container.encode(totalResults)
@@ -80,8 +89,8 @@ public struct HistoricalNewsRequest: IdentifiableRequest{
 }
 
 
-/*
-returns historical news headlines
+/**
+ Returns historical news headlines
 */
 public struct HistoricalNews: IBEvent, IBDecodable, Identifiable{
 		
@@ -107,7 +116,7 @@ public struct HistoricalNews: IBEvent, IBDecodable, Identifiable{
 }
 
 /**
-signals end of historical news
+ Signals end of historical news
 */
 public struct HistoricalNewsEnd: IBEvent, IBDecodable, Identifiable {
 
