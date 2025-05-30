@@ -1,4 +1,8 @@
 # IBModels
+![API Version](https://img.shields.io/badge/API_Version-10.33.0-blue)
+![Swift](https://img.shields.io/badge/Swift-5.9-blue.svg)
+[![SPM](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-blue.svg)](https://github.com/apple/swift-package-manager)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/stensoosaar/IBKit#license) 
 
 A native Swift library representing Interactive Brokers request and response data models. 
 
@@ -21,7 +25,10 @@ Furthermore, by separating the model layer from the client implementation, devel
 To use the `IBModels` library in a SwiftPM project, add the following line to the dependencies in your `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/stensoosaar/ibmodels", from: "10.33.0"),
+dependencies: [
+    .package(url: "https://github.com/stensoosaar/ibmodels", from: "10.33.0")
+}
+
 ```
 
 Include `"TWS"` as a dependency for your executable target:
