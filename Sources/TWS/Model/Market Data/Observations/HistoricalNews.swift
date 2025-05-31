@@ -38,7 +38,7 @@ public struct HistoricalNewsRequest: IdentifiableRequest{
 	
 	public let contractId: Int
 	
-	public let providerCodes: String
+	public let providerCodes: [String]
 	
 	public let interval: DateInterval
 	
@@ -82,7 +82,7 @@ public struct HistoricalNewsRequest: IdentifiableRequest{
 		try container.encode(totalResults)
 		
 		if encoder.serverVersion >= .newsQueryOrigins {
-			try container.encodeOptional(historicalNewsOptions)
+			try container.encodeOptional(options)
 		}
 	}
 	

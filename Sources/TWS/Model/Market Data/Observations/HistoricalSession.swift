@@ -59,8 +59,8 @@ public struct HistoricalSchedule: IBEvent, IBDecodable, Identifiable{
 	public init(from decoder: IBDecoder) throws{
 		var container = try decoder.unkeyedContainer()
 		self.id = try container.decode(Int.self)
-		let start = try container.decode(String.self)
-		let end = try container.decode(String.self)
+		let start = try container.decode(Date.self)
+		let end = try container.decode(Date.self)
 		self.interval = DateInterval(start: start, end: end)
 		self.timeZoneID = try container.decode(String.self)
 		let count = try container.decode(Int.self)
