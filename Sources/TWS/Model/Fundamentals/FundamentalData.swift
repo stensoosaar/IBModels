@@ -24,7 +24,9 @@
 
 import Foundation
 
-
+/**
+ Fundamental data request
+ */
 public struct FundamentalDataRequest: AnyCancellableRequest, IdentifiableRequest {
 	
 	public let type: RequestType = .fundamentalData
@@ -51,6 +53,13 @@ public struct FundamentalDataRequest: AnyCancellableRequest, IdentifiableRequest
 	public let options: [String:String]?
 
 
+	/**
+	 Creates new fundamental data request
+	 - returns: `HistoricalData` object
+	 - parameter id: unique request id
+	 - parameter contract: contract
+	 - parameter reportType: requested report type
+	 */
 	public init(id: Int, contract: Contract , reportType: ReportType) {
 		self.id = id
 		self.contract = contract
@@ -90,7 +99,9 @@ public struct FundamentalDataRequest: AnyCancellableRequest, IdentifiableRequest
 	}
 }
 
-
+/**
+ Cancellation request of outstanding request
+ */
 public struct FundamentalDataCancel: IdentifiableRequest {
 	
 	public let type: RequestType = .fundamentalDataCancel
@@ -101,6 +112,10 @@ public struct FundamentalDataCancel: IdentifiableRequest {
 
 	public let id: Int
 
+	/**
+	 Creates new cancellation request for outstanding FundamentalDataRequest
+	 - Parameter id: The identifier of the active `FundamentalDataRequest` to cancel.
+	 */
 	public init(id: Int){
 		self.id = id
 	}
@@ -117,14 +132,16 @@ public struct FundamentalDataCancel: IdentifiableRequest {
 
 
 /**
- This function is called to receive fundamental
- market data. The appropriate market data subscription must be set
- up in Account Management before you can receive this data.
+ Delivers fundamental market data.
+ The appropriate market data subscription must be set up in Account Management before you can receive this data.
+ - note: this data is most likely from Reuters.
  */
 public struct FundamentalData: IBEvent, IBDecodable, Identifiable{
 
+	/// identifier of originating request
 	public let id: Int
 
+	/// xml report
 	public let xml: String
 	
 	public init(from decoder: IBDecoder) throws {
