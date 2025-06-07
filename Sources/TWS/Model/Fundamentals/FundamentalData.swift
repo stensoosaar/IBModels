@@ -93,7 +93,7 @@ public struct FundamentalDataRequest: AnyCancellableRequest, IdentifiableRequest
 
 public struct FundamentalDataCancel: IdentifiableRequest {
 	
-	public let type: RequestType = .calcImpliedVolatility
+	public let type: RequestType = .fundamentalDataCancel
 	
 	private let version:Int = 1
 	
