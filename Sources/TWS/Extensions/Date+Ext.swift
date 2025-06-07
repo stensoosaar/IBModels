@@ -31,7 +31,7 @@ public extension Date{
 	
 	static func futureExpiration(year:Int, month: Int) throws -> Date {
 		let comps = DateComponents(year: year, month: month)
-		guard let startOfMonth = Calendar.current.date(from: comps) else {
+		guard let startOfMonth = Calendar.utc.date(from: comps) else {
 			throw IBError.invalidValue("Invalid date components")
 		}
 		return startOfMonth.endOfMonth
@@ -39,37 +39,37 @@ public extension Date{
 	
 	static func optionExpiration(year:Int, month: Int, day: Int) throws -> Date {
 		let comps = DateComponents(year:year, month: month, day: day)
-		guard let date = Calendar.current.date(from: comps) else {
+		guard let date = Calendar.utc.date(from: comps) else {
 			throw IBError.invalidValue("Invalid date components")
 		}
 		return date
 	}
 	
 	var startOfDay: Date {
-		return Calendar.current.startOfDay(for: self)
+		return Calendar.utc.startOfDay(for: self)
 	}
 	
 	var endOfDay: Date {
 		var components = DateComponents()
 		components.day = 1
 		components.second = -1
-		return Calendar.current.date(byAdding: components, to: startOfDay)!
+		return Calendar.utc.date(byAdding: components, to: startOfDay)!
 	}
 	
 	private var startOfMonth: Date {
-		let components = Calendar.current.dateComponents([.year, .month], from: startOfDay)
-		return Calendar.current.date(from: components)!
+		let components = Calendar.utc.dateComponents([.year, .month], from: startOfDay)
+		return Calendar.utc.date(from: components)!
 	}
 	
 	private var endOfMonth: Date {
 		var components = DateComponents()
 		components.month = 1
 		components.second = -1
-		return Calendar.current.date(byAdding: components, to: startOfMonth)!
+		return Calendar.utc.date(byAdding: components, to: startOfMonth)!
 	}
 	
 	var futureExpirationCode: String? {
-		let comps = Calendar.current.dateComponents([.month, .year], from: self)
+		let comps = Calendar.utc.dateComponents([.month, .year], from: self)
 		guard let month = comps.month, let year = comps.year else {return nil}
 		let monthCode = ["F","G","H","J","K","M","N","Q","U","V","X","Z"][month-1]
 		let yearCode = "\(year)".suffix(1)
@@ -78,7 +78,7 @@ public extension Date{
 	
 	init(year: Int, month: Int, day: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) throws {
 		let comps = DateComponents(year: year, month: month, day: day, hour: hour, minute: minute, second: second)
-		guard let date = Calendar.current.date(from: comps) else {
+		guard let date = Calendar.utc.date(from: comps) else {
 			throw IBError.invalidValue("\(year)-\(month)-\(day) invalid values to make date")
 		}
 		self.init(timeIntervalSince1970: date.timeIntervalSince1970)

@@ -41,7 +41,7 @@ public extension DateInterval {
 	*/
 	static func lookback(_ value: Int, unit: Calendar.Component, until endDate: Date = Date()) -> DateInterval {
 		let adjustedEnd = endDate.timeIntervalSince1970 > Date().timeIntervalSince1970 ? Date() : endDate
-		let startDate = Calendar.current.date(byAdding: unit, value: -1 * abs(value), to: adjustedEnd)!
+		let startDate = Calendar.utc.date(byAdding: unit, value: -1 * abs(value), to: adjustedEnd)!
 		return DateInterval(start: startDate.startOfDay, end: endDate)
 	}
 	
