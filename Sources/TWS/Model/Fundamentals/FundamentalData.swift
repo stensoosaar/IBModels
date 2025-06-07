@@ -25,7 +25,7 @@
 import Foundation
 
 /**
- Fundamental data request
+ Fundamental data request (from Reuters)
  */
 public struct FundamentalDataRequest: AnyCancellableRequest, IdentifiableRequest {
 	
