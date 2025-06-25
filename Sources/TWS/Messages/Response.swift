@@ -110,14 +110,64 @@ public struct Response: IBDecodable {
 			
 			switch type.valueType{
 			case is String.Type:
-				let payload = try  container.decode(AccountUpdate<String>.self)
+				let payload = try container.decode(AccountUpdate<String>.self)
 				result = .success(payload)
 				requestId = nil //payload.accountName
 			default:
-				let payload = try  container.decode(AccountUpdate<Double>.self)
+				let payload = try container.decode(AccountUpdate<Double>.self)
 				result = .success(payload)
 				requestId = nil //payload.accountName
 			}
+			
+		case .accountSummary:
+						
+			let rawValue = try decoder.peek(offset: 3)
+			
+			guard let type = AccountSummaryKeys(rawValue: rawValue) else {
+				print(rawValue, decoder.description)
+				throw IBError.decodingError("Unable to decode AccountSummaryKeys")
+			}
+			
+			switch type.valueType{
+			case is String.Type:
+				let payload = try  container.decode(AccountSummary<String>.self)
+				result = .success(payload)
+				requestId = payload.id
+			default:
+				let payload = try  container.decode(AccountSummary<Double>.self)
+				result = .success(payload)
+				requestId = payload.id
+			}
+			
+		case .accountSummaryEnd:
+			let payload = try  container.decode(AccountSummaryEnd.self)
+			result = .success(payload)
+			requestId = payload.id
+			
+			
+		case .accountUpdateMulti:
+						
+			let rawValue = try decoder.peek(offset: 4)
+			guard let type = AccountUpdateKeys(rawValue: rawValue) else {
+				throw IBError.decodingError("Unable to decode key")
+			}
+			
+			switch type.valueType{
+			case is String.Type:
+				let payload = try  container.decode(AccountUpdateMulti<String>.self)
+				result = .success(payload)
+				requestId = payload.id
+
+			default:
+				let payload = try  container.decode(AccountUpdateMulti<Double>.self)
+				result = .success(payload)
+				requestId = payload.id
+			}
+			
+		case .accountUpdateMultiEnd:
+			let payload = try  container.decode(AccountUpdateMultiEnd.self)
+			result = .success(payload)
+			requestId = payload.id
 			
 		case .positionUpdate:
 			let payload = try container.decode(PositionUpdate.self)
@@ -254,31 +304,6 @@ public struct Response: IBDecodable {
 			result = .success(payload)
 			requestId = nil
 
-		case .accountSummary:
-						
-			let rawValue = try decoder.peek(offset: 3)
-			
-			guard let type = AccountSummaryKeys(rawValue: rawValue) else {
-				print(rawValue, decoder.description)
-				throw IBError.decodingError("Unable to decode AccountSummaryKeys")
-			}
-			
-			switch type.valueType{
-			case is String.Type:
-				let payload = try  container.decode(AccountSummary<String>.self)
-				result = .success(payload)
-				requestId = payload.id
-			default:
-				let payload = try  container.decode(AccountSummary<Double>.self)
-				result = .success(payload)
-				requestId = payload.id
-			}
-			
-		case .accountSummaryEnd:
-			let payload = try  container.decode(AccountSummaryEnd.self)
-			result = .success(payload)
-			requestId = payload.id
-
 		case .displayGroupList:
 			let payload = try  container.decode(DisplayGroupList.self)
 			result = .success(payload)
@@ -296,30 +321,6 @@ public struct Response: IBDecodable {
 
 		case .positionMultiEnd:
 			let payload = try  container.decode(PositionSizeMultiEnd.self)
-			result = .success(payload)
-			requestId = payload.id
-
-		case .accountUpdateMulti:
-			
-			let rawValue = try decoder.peek(offset: 1)
-			guard let type = AccountUpdateKeys(rawValue: rawValue) else {
-				throw IBError.decodingError("Unable to decode AccountUpdateKeys")
-			}
-			
-			switch type.valueType{
-			case is String.Type:
-				let payload = try  container.decode(AccountUpdateMulti<String>.self)
-				result = .success(payload)
-				requestId = payload.id
-
-			default:
-				let payload = try  container.decode(AccountUpdateMulti<Double>.self)
-				result = .success(payload)
-				requestId = payload.id
-			}
-			
-		case .accountUpdateMultiEnd:
-			let payload = try  container.decode(AccountUpdateMultiEnd.self)
 			result = .success(payload)
 			requestId = payload.id
 

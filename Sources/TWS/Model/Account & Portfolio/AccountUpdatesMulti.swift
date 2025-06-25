@@ -44,7 +44,7 @@ public struct AccountUpdatesMultiRequest: AnyCancellableRequest, IdentifiableReq
 	
 	public let modelCode: String?
 	
-	public let ledgerAndNLV: Bool?
+	public let ledgerAndNLV: Bool
 	
 	/**
 	 
@@ -54,7 +54,7 @@ public struct AccountUpdatesMultiRequest: AnyCancellableRequest, IdentifiableReq
 	 - parameter ledgerAndNLV: includes only currency positions as opposed to account values and currency positions
 	 */
 	
-	public init(id: Int, accountName: String, modelCode:String? = nil, ledgerAndNLV: Bool? = false){
+	public init(id: Int, accountName: String, modelCode:String? = nil, ledgerAndNLV: Bool = false){
 		self.id = id
 		self.accountName = accountName
 		self.modelCode = modelCode
@@ -72,7 +72,7 @@ public struct AccountUpdatesMultiRequest: AnyCancellableRequest, IdentifiableReq
 		try container.encode(version)
 		try container.encode(id)
 		try container.encode(accountName)
-		try container.encode(modelCode)
+		try container.encodeOptional(modelCode)
 		try container.encode(ledgerAndNLV)
 	}
 }
@@ -130,6 +130,7 @@ public struct AccountUpdateMulti<T>: AccountKeyValueUpdate, Identifiable where T
 
 	public init(from decoder: IBDecoder) throws {
 		var container = try decoder.unkeyedContainer()
+		_ = try container.decode(Int.self)
 		self.id = try container.decode(Int.self)
 		self.accountName = try container.decode(String.self)
 		self.modelCode = try container.decode(String.self)

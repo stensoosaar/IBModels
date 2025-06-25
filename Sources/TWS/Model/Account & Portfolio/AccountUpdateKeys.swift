@@ -456,6 +456,12 @@ public enum AccountUpdateKeys: String, CaseIterable, Codable, Sendable {
 	
 	case SegmentTitleP = "SegmentTitle-P"
 	
+	case SettledCashByDate = "SettledCashByDate"
+	
+	case SettledCashByDateP = "SettledCashByDate-P"
+
+	case SettledCashByDateS = "SettledCashByDate-S"
+
 }
 
 
@@ -527,6 +533,9 @@ extension AccountUpdateKeys {
 		case .accountType: 		return String.self
 		case .accountReady: 	return String.self
 		case .NLVAndMarginInReview: return String.self
+		case .SettledCashByDate: return String.self
+		case .SettledCashByDateP: return String.self
+		case .SettledCashByDateS: return String.self
 		default: return Double.self
 		}
 	}
