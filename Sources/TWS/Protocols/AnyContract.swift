@@ -32,7 +32,7 @@ public protocol AnyContract {
 	var id: Int? {get set}
 
 	///The security’s type:
-	var type: Contract.SecuritiesType? {get set}
+	var type: SecuritiesType? {get set}
 
 	/// The underlying’s asset symbol.
 	var symbol: String? {get set}
@@ -71,7 +71,7 @@ public protocol AnyContract {
 	 */
 	var tradingClass: String? {get set}
 	
-	var globalID: Contract.GlobalIdentifier? {get set}
+	var globalID: GlobalIdentifier? {get set}
 	
 	
 }

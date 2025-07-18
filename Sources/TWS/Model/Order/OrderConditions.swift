@@ -43,7 +43,7 @@ public struct OrderConditions: IBCodable, Sendable {
 		case price(_ argument: Argument, price: Double, trigger: Order.TriggerMethod, contractID: Int, exchange: String)
 		case time(_ argument: Argument, date: Date)
 		case margin(_ argument: Argument, value: Double)
-		case execution(_ type: Contract.SecuritiesType, symbol: String, market: String)
+		case execution(_ type: SecuritiesType, symbol: String, market: String)
 		case volume (_ argument: Argument, value: Double, contractID: Int, exchange: String)
 		case changePerCent(_ argument: Argument, value: Double, contractID: Int, exchange: String)
 		
@@ -82,7 +82,7 @@ public struct OrderConditions: IBCodable, Sendable {
 				self = .margin(argument, value: value)
 			
 			case 5:
-				let type = try container.decode(Contract.SecuritiesType.self)
+				let type = try container.decode(SecuritiesType.self)
 				let symbol = try container.decode(String.self)
 				let market = try container.decode(String.self)
 				self = .execution(type, symbol: symbol, market: market)

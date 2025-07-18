@@ -103,7 +103,7 @@ public struct OpenOrder:  IBEvent, IBDecodable, Identifiable {
 		// decodeContract
 		_contract.id = try container.decodeOptional(Int.self)
 		_contract.symbol = try container.decodeOptional(String.self)
-		_contract.type = try container.decodeOptional(Contract.SecuritiesType.self)
+		_contract.type = try container.decodeOptional(SecuritiesType.self)
 		_contract.expiration = try container.decodeOptional(DateComponents.self)
 		_contract.strike = try container.decodeOptional(Double.self)
 		_contract.right = try container.decodeOptional(Contract.ExecutionRight.self)

@@ -180,7 +180,7 @@ public struct ScannerData:  IBEvent, IBDecodable, Identifiable {
 			var details = ContractDetails()
 			details.id = try container.decode(Int.self)
 			details.symbol = try container.decode(String.self)
-			details.type = try container.decode(Contract.SecuritiesType.self)
+			details.type = try container.decode(SecuritiesType.self)
 			details.expiration = try container.decodeOptional(DateComponents.self)
 			details.strike = try container.decodeOptional(Double.self)
 			details.right = try container.decodeOptional(Contract.ExecutionRight.self)

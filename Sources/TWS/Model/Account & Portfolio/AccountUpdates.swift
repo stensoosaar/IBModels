@@ -188,7 +188,7 @@ public struct PositionUpdate: AnyAccountValueUpdate {
 		var temp = Contract()
 		temp.id = try container.decode(Int.self)
 		temp.symbol = try container.decode(String.self)
-		temp.type = try container.decode(Contract.SecuritiesType.self)
+		temp.type = try container.decode(SecuritiesType.self)
 		temp.expiration = try container.decodeOptional(DateComponents.self)
 		temp.strike = try container.decodeOptional(Double.self)
 		temp.right = try container.decodeOptional(Contract.ExecutionRight.self)

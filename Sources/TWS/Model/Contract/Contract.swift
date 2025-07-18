@@ -31,79 +31,6 @@ public struct Contract: AnyContract, Sendable, Hashable, Equatable, Identifiable
 	
 	/// The unique IB contract identifier.
 	public var id: Int?
-
-	/// Represents the type of security instrument supported by Interactive Brokers.
-	public enum SecuritiesType: String, Sendable, Codable {
-		
-		/// Stock (e.g., common or preferred equity).
-		case stock = "STK"
-		
-		/// Option on stocks or indices.
-		case option = "OPT"
-		
-		/// Standardized futures contract.
-		case future = "FUT"
-		
-		/// Continuous future — a synthetic representation of rolling futures.
-		case continousFuture = "CONTFUT"
-		
-		/// Cash instrument — typically foreign exchange.
-		case cash = "CASH"
-		
-		/// Fixed-income security such as government or corporate bonds.
-		case bond = "BOND"
-		
-		/// Contract for Difference — derivative instrument.
-		case cfd = "CFD"
-		
-		/// Option on a futures contract.
-		case futuresOption = "FOP"
-		
-		/// Warrant — long-dated option typically issued by a company.
-		case warrant = "WAR"
-		
-		/// Structured product such as barrier or digital options.
-		case structuredProduct = "IOPT"
-		
-		/// Forward contract — customized OTC agreement.
-		case forward = "FWD"
-		
-		/// Combination of multiple instruments (e.g., option spread).
-		case combo = "BAG"
-		
-		/// Market index (e.g., S&P 500, Nasdaq).
-		case index = "IND"
-		
-		/// Treasury bill — short-term government security.
-		case bill = "BILL"
-		
-		/// Mutual fund or exchange-traded fund (ETF).
-		case fund = "FUND"
-		
-		/// Fixed income instrument not covered under bond or bill.
-		case fixed = "FIXED"
-		
-		/// Securities lending/borrowing instrument.
-		case slb = "SLB"
-		
-		/// News feed — not a tradable instrument.
-		case news = "NEWS"
-		
-		/// Commodity such as gold, oil, or agricultural products.
-		case commodity = "CMDTY"
-		
-		/// Basket of securities.
-		case bsk = "BSK"
-		
-		/// Intercommodity unit — related to futures spreads.
-		case icu = "ICU"
-		
-		/// Intercommodity spread.
-		case ics = "ICS"
-		
-		/// Cryptocurrency asset (e.g., BTC, ETH).
-		case crypto = "CRYPTO"
-	}
 	
 	///The security’s type:
 	public var type: SecuritiesType?
@@ -149,42 +76,7 @@ public struct Contract: AnyContract, Sendable, Hashable, Equatable, Identifiable
 	 For example, GBL Dec ’13 future’s trading class is “FGBL”
 	 */
 	public var tradingClass: String?
-	
-	public struct GlobalIdentifier: Codable, Sendable, Equatable {
 		
-		public enum Provider: String, Codable, Sendable {
-			case isin = "ISIN"
-			case cusip = "CUSIP"
-			case sedol = "SEDOL"
-			case ric = "RIC"
-			case figi = "FIGI"
-		}
-		
-		/// ID provider organisation like ISIN, Reuters, Bloomberg etc
-		public let type: Provider
-		
-		// identifier value
-		public let identifier: String
-		
-		public static func == (lhs: Contract.GlobalIdentifier, rhs: Contract.GlobalIdentifier) -> Bool {
-			return lhs.type == rhs.type && lhs.identifier == rhs.identifier
-		}
-		
-		//TODO: - need to encode empty values if empty
-		public func encode(to encoder: any Encoder) throws {
-			var container = encoder.unkeyedContainer()
-			try container.encodeOptional(self.type)
-			try container.encodeOptional(self.identifier)
-		}
-		
-		public init(from decoder: IBDecoder) throws {
-			var container  = try decoder.unkeyedContainer()
-			self.type = try container.decode(Provider.self)
-			self.identifier = try container.decode(String.self)
-		}
-		
-	}
-	
 	/// Security’s identifier when querying contract’s details or placing orders ISIN – Example: Apple: US0378331005
 	public var globalID: GlobalIdentifier?
 	

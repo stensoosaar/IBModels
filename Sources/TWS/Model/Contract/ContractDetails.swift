@@ -33,7 +33,7 @@ public struct ContractDetails: AnyContract, Hashable, Equatable, Sendable{
 	public var id: Int?
 	
 	/// securities type
-	public var type: Contract.SecuritiesType?
+	public var type: SecuritiesType?
 	
 	///The underlying’s asset symbol.
 	public var symbol: String?
@@ -99,7 +99,7 @@ public struct ContractDetails: AnyContract, Hashable, Equatable, Sendable{
 	 Global unique security’s identifier (i.e. isin, cuspip, figi, etc)
 	 when querying contract’s details or placing orders
 	 */
-	public var globalID: Contract.GlobalIdentifier?
+	public var globalID: GlobalIdentifier?
 	
 	/**
 	 If set to true, contract details requests and historical data queries can be performed pertaining to expired futures contracts. Expired options or other instrument types are not available.
@@ -173,7 +173,7 @@ public struct ContractDetails: AnyContract, Hashable, Equatable, Sendable{
 	 A list of contract identifiers that the customer is allowed to view. CUSIP/ISIN/etc.
 	 - note: For US stocks
 	 */
-	public var secIdList: [Contract.GlobalIdentifier]?
+	public var secIdList: [GlobalIdentifier]?
 	
 	/**
 	 Aggregated group Indicates the smart-routing group to which a contract belongs.
@@ -185,7 +185,7 @@ public struct ContractDetails: AnyContract, Hashable, Equatable, Sendable{
 	public var underSymbol: String?
 	
 	/// Underlying contract type for derivate contract
-	public var underSecType: Contract.SecuritiesType?
+	public var underSecType: SecuritiesType?
 	
 	/**
 	 The list of market rule IDs separated by comma Market rule IDs can be used to determine the minimum price increment at a given price.

@@ -41,7 +41,7 @@ public struct ExecutionsRequest: IdentifiableRequest{
 		public let accountName: String?
 		public let time: Date?
 		public let symbol: String?
-		public let type: Contract.SecuritiesType?
+		public let type: SecuritiesType?
 		public let exchange: String?
 		public let side: Order.Action?
 		
@@ -50,7 +50,7 @@ public struct ExecutionsRequest: IdentifiableRequest{
 			accountName: String? = nil,
 			time: Date? = nil,
 			symbol: String? = nil,
-			type: Contract.SecuritiesType? = nil,
+			type: SecuritiesType? = nil,
 			exchange: String? = nil,
 			side: Order.Action? = nil
 		) {

@@ -45,7 +45,7 @@ public struct OptionParametersRequest: IdentifiableRequest {
 	public let underlyingSymbol: String
 	
 	/// underlying contract type
-	public let underlyingType: Contract.SecuritiesType
+	public let underlyingType: SecuritiesType
 
 	public let futFopExchange: String?
 			
@@ -62,7 +62,7 @@ public struct OptionParametersRequest: IdentifiableRequest {
 		id: Int,
 		underlyingId: Int,
 		underlyingSymbol: String,
-		underlyingType: Contract.SecuritiesType,
+		underlyingType: SecuritiesType,
 		futFopExchange:String? = nil
 	){
 		self.id = id

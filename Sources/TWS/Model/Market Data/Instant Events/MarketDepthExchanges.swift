@@ -53,7 +53,7 @@ public struct MarketDepthExchanges: IBEvent, IBDecodable {
 	
 	public struct Provider: Sendable, IBDecodable {
 		public let name: String
-		public let type: Contract.SecuritiesType
+		public let type: SecuritiesType
 		public let listingExch: String?
 		public let serviceDataType: String?
 		public let aggGroup: Int?
@@ -61,7 +61,7 @@ public struct MarketDepthExchanges: IBEvent, IBDecodable {
 		public init(from decoder: IBDecoder) throws {
 			var container = try decoder.unkeyedContainer()
 			self.name = try container.decode(String.self)
-			self.type = try container.decode(Contract.SecuritiesType.self)
+			self.type = try container.decode(SecuritiesType.self)
 			if decoder.serverVersion >= .serviceDataType{
 				self.listingExch =  try container.decodeOptional(String.self)
 				self.serviceDataType = try container.decodeOptional(String.self)

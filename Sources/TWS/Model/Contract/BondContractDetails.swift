@@ -46,7 +46,7 @@ public struct BondDetailsMessage: IBEvent, IBDecodable, Identifiable {
 		var temp = ContractDetails()
 		
 		temp.symbol = try container.decode(String.self)
-		temp.type = try container.decode(Contract.SecuritiesType.self)
+		temp.type = try container.decode(SecuritiesType.self)
 		temp.cusip = try container.decode(String.self)
 		temp.coupon = try container.decode(Double.self)
 		temp.expiration = try container.decode(DateComponents.self)
@@ -94,9 +94,9 @@ public struct BondDetailsMessage: IBEvent, IBDecodable, Identifiable {
 		}
 		if version >= 5 {
 			let count = try container.decode(Int.self)
-			var buffer:[Contract.GlobalIdentifier] = []
+			var buffer:[GlobalIdentifier] = []
 			for _ in 0 ..< count {
-				let temp = try container.decode(Contract.GlobalIdentifier.self)
+				let temp = try container.decode(GlobalIdentifier.self)
 				buffer.append(temp)
 			}
 			temp.secIdList = buffer

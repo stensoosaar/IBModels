@@ -66,7 +66,7 @@ public struct MatchingSymbols: IBEvent, Identifiable {
 	
 	public struct SearchResult: Sendable, Decodable{
 		public var contract: Contract
-		public var availableTypes: [Contract.SecuritiesType]
+		public var availableTypes: [SecuritiesType]
 	}
 	
 	public let id: Int
@@ -85,14 +85,14 @@ extension MatchingSymbols: IBDecodable {
 			var contract = Contract()
 			contract.id = try container.decode(Int.self)
 			contract.symbol = try container.decode(String.self)
-			contract.type = try container.decode(Contract.SecuritiesType.self)
+			contract.type = try container.decode(SecuritiesType.self)
 			contract.primaryExchange = try container.decode(String.self)
 			contract.currency = try container.decode(String.self)
 			
-			var derivates: [Contract.SecuritiesType] = []
+			var derivates: [SecuritiesType] = []
 			let derivateCount = try container.decode(Int.self)
 			for _ in 0..<derivateCount{
-				derivates.append(try container.decode(Contract.SecuritiesType.self))
+				derivates.append(try container.decode(SecuritiesType.self))
 			}
 			
 			if decoder.serverVersion >= .bondIssuerid{
