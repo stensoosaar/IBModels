@@ -25,7 +25,7 @@ To use the `IBModels` library in a SwiftPM project, add the following line to th
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/stensoosaar/ibmodels", from: "10.33.0")
+    .package(url: "https://github.com/stensoosaar/ibmodels", branch: "main")
 }
 
 ```
