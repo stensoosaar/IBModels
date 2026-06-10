@@ -1,6 +1,6 @@
 # IBModels
 ![API Version](https://img.shields.io/badge/API_Version-10.33.0-blue)
-![Status](https://img.shields.io/badge/Status-Deprecated-red
+![Status](https://img.shields.io/badge/Status-Deprecated-red)
 
 
 **IB has moved on to using ProtoBuf objects instead of the wire protocol, making this library obsolete.**
