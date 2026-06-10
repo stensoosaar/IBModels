@@ -1,8 +1,11 @@
 # IBModels
 ![API Version](https://img.shields.io/badge/API_Version-10.33.0-blue)
-![Swift](https://img.shields.io/badge/Swift-5.9+-blue.svg)
-[![SPM](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-blue.svg)](https://github.com/apple/swift-package-manager)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/stensoosaar/IBKit#license) 
+![Status](https://img.shields.io/badge/Status-Deprecated-red
+
+
+**IB has moved on to using ProtoBuf objects instead of the wire protocol, making this library obsolete.**
+
+
 
 A native Swift library representing Interactive Brokers request and response data models for IB TWS API. Client Portal API (aka webapi) is not currently supported.
 
